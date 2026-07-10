@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Add Student
+    </title>
+
+    <!-- Google Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5,
+                #06b6d4
+            );
+
+        }
+
+        .container {
+
+            width: 100%;
+            max-width: 850px;
+
+            background: rgba(255,255,255,.15);
+
+            backdrop-filter: blur(18px);
+
+            border-radius: 25px;
+
+            padding: 40px;
+
+            border: 1px solid rgba(255,255,255,.2);
+
+            box-shadow: 0 20px 50px rgba(0,0,0,.30);
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+        }
+
+        .header i {
+
+            font-size: 60px;
+
+            color: white;
+
+            margin-bottom: 15px;
+
+        }
+
+        .header h1 {
+
+            color: white;
+
+            font-size: 34px;
+
+            margin-bottom: 10px;
+
+        }
+
+        .header p {
+
+            color: rgba(255,255,255,.92);
+
+        }
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2,1fr);
+
+            gap: 20px;
+
+        }
+
+        .input-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+        .input-group.full {
+
+            grid-column: span 2;
+
+        }
+
+        .input-group label {
+
+            color: white;
+
+            margin-bottom: 10px;
+
+            font-weight: 500;
+
+        }
+
+        .input-group input {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: .3s;
+
+        }
+
+        .input-group input:focus {
+
+            transform: scale(1.02);
+
+            box-shadow: 0 0 0 4px rgba(255,255,255,.25);
+
+        }
+
+        .button-area {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-top: 35px;
+
+        }
+
+        .submit-btn {
+
+            border: none;
+
+            cursor: pointer;
+
+            padding: 15px 40px;
+
+            border-radius: 50px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            );
+
+            transition: .3s;
+
+        }
+
+        .submit-btn:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: 0 12px 30px rgba(0,0,0,.30);
+
+        }
+
+        .dashboard-btn {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background: rgba(255,255,255,.15);
+
+            padding: 12px 22px;
+
+            border-radius: 10px;
+
+            transition: .3s;
+
+        }
+
+        .dashboard-btn:hover {
+
+            background: rgba(255,255,255,.25);
+
+        }
+
+        .loading {
+
+            display: none;
+
+            text-align: center;
+
+            color: white;
+
+            margin-top: 25px;
+
+        }
+
+        .loading i {
+
+            font-size: 28px;
+
+            animation: spin 1s linear infinite;
+
+        }
+
+        @keyframes spin {
+
+            from {
+
+                transform: rotate(0deg);
+
+            }
+
+            to {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+        .message {
+
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            color: white;
+
+            font-weight: 600;
+
+        }
+
+        .success {
+
+            background: rgba(16,185,129,.25);
+
+            border: 1px solid #10b981;
+
+        }
+
+        .error {
+
+            background: rgba(239,68,68,.25);
+
+            border: 1px solid #ef4444;
+
+        }
+
+        @media (max-width:768px) {
+
+            body {
+
+                padding: 20px;
+
+            }
+
+            .container {
+
+                padding: 25px;
+
+            }
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .input-group.full {
+
+                grid-column: span 1;
+
+            }
+
+            .header h1 {
+
+                font-size: 28px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ============================= -->
+        <!-- Header -->
+        <!-- ============================= -->
+
+        <div class="header">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            <h1>
+                Add Student
+            </h1>
+
+            <p>
+                Register a new student by filling in the details below.
+            </p>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Student Form -->
+        <!-- ============================= -->
+
+        <form id="studentForm">
+
+            <div class="form-grid">
+
+                <!-- Student Name -->
+
+                <div class="input-group">
+
+                    <label for="name">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        Student Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter student name"
+                        required>
+
+                </div>
+
+                <!-- Course -->
+
+                <div class="input-group">
+
+                    <label for="course">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        Course
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="course"
+                        name="course"
+                        placeholder="Enter course"
+                        required>
+
+                </div>
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="email">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        Email
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter email address"
+                        required>
+
+                </div>
+
+                <!-- Phone Number -->
+
+                <div class="input-group">
+
+                    <label for="phoneNumber">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        Phone Number
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        maxlength="10"
+                        placeholder="Enter 10-digit phone number"
+                        required>
+
+                </div>
+
+            </div>
+
+            <!-- ============================= -->
+            <!-- Submit Button -->
+            <!-- ============================= -->
+
+            <div class="button-area">
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Student
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- ============================= -->
+        <!-- Loading -->
+        <!-- ============================= -->
+
+        <div
+            id="loading"
+            class="loading">
+
+            <i class="fa-solid fa-spinner"></i>
+
+            <p>
+                Adding student...
+            </p>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Response Message -->
+        <!-- ============================= -->
+
+        <div
+            id="responseMessage"
+            class="message">
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Dashboard Button -->
+        <!-- ============================= -->
+
+        <div
+            style="
+                text-align: center;
+                margin-top: 25px;
+            ">
+
+            <a
+                href="../index.html"
+                class="dashboard-btn">
+
+                <i class="fa-solid fa-house"></i>
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const form = document.getElementById("studentForm");
+
+        const loading = document.getElementById("loading");
+
+        const responseMessage =
+            document.getElementById("responseMessage");
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("name").value.trim();
+
+            const course =
+                document.getElementById("course").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const phoneNumber =
+                document.getElementById("phoneNumber").value.trim();
+
+            // =====================================
+            // Validation
+            // =====================================
+
+            if (
+                name === "" ||
+                course === "" ||
+                email === "" ||
+                phoneNumber === ""
+            ) {
+
+                showMessage(
+                    "Please fill in all fields.",
+                    false
+                );
+
+                return;
+
+            }
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+
+                showMessage(
+                    "Please enter a valid email address.",
+                    false
+                );
+
+                return;
+
+            }
+
+            const phonePattern =
+                /^[0-9]{10}$/;
+
+            if (!phonePattern.test(phoneNumber)) {
+
+                showMessage(
+                    "Phone number must contain exactly 10 digits.",
+                    false
+                );
+
+                return;
+
+            }
+
+            loading.style.display = "block";
+
+            responseMessage.style.display = "none";
+
+            const data = {
+
+                name: name,
+
+                course: course,
+
+                email: email,
+
+                phoneNumber: phoneNumber
+
+            };
+
+            try {
+
+                const response = await fetch(
+
+                    "http://localhost:8080/students",
+
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type": "application/json"
+
+                        },
+
+                        body: JSON.stringify(data)
+
+                    }
+
+                );
+
+                loading.style.display = "none";
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to add student."
+                    );
+
+                }
+
+                showMessage(
+                    "✅ Student added successfully!",
+                    true
+                );
+
+                form.reset();
+
+            }
+
+            catch (error) {
+
+                loading.style.display = "none";
+
+                console.error(error);
+
+                showMessage(
+                    "❌ Unable to connect to the server.",
+                    false
+                );
+
+            }
+
+        });
+
+        // =====================================
+        // Success / Error Message
+        // =====================================
+
+        function showMessage(message, success) {
+
+            responseMessage.style.display = "block";
+
+            responseMessage.textContent = message;
+
+            if (success) {
+
+                responseMessage.classList.remove("error");
+
+                responseMessage.classList.add("success");
+
+            }
+            else {
+
+                responseMessage.classList.remove("success");
+
+                responseMessage.classList.add("error");
+
+            }
+
+        }
+
+    </script>
+</body>
+</html>
